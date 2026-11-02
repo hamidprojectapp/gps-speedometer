@@ -1,0 +1,433 @@
+
+/* =========================================
+   GPS SPEEDOMETER
+   ANDROID MATERIAL DESIGN 3 - LIGHT THEME
+   ========================================= */
+
+:root {
+  --md-primary: #2563eb;
+  --md-primary-dark: #1d4ed8;
+  --md-on-primary: #ffffff;
+
+  --md-background: #f8f9ff;
+  --md-surface: #ffffff;
+  --md-surface-variant: #eef1f8;
+
+  --md-text: #191c20;
+  --md-text-secondary: #5f636b;
+  --md-outline: #dce1eb;
+
+  --md-success: #16834a;
+  --md-success-bg: #e1f5e9;
+
+  --md-warning: #a15c00;
+  --md-warning-bg: #fff1d6;
+
+  --md-danger: #ba1a1a;
+  --md-danger-bg: #ffdad6;
+
+  --md-radius: 20px;
+  --md-radius-small: 14px;
+
+  --md-shadow:
+    0 2px 8px rgba(25, 28, 32, 0.06),
+    0 1px 3px rgba(25, 28, 32, 0.04);
+}
+
+/* =========================================
+   RESET
+   ========================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--md-background);
+  color: var(--md-text);
+  font-family: Roboto, "Arial", sans-serif;
+  min-height: 100vh;
+  padding: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--md-text);
+}
+
+.header p {
+  color: var(--md-text-secondary);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.gps-status {
+  background: var(--md-danger-bg);
+  color: var(--md-danger);
+  padding: 9px 13px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================================
+   SPEEDOMETER CARD
+   ========================================= */
+
+.speed-card {
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline);
+  border-radius: 28px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: var(--md-shadow);
+}
+
+.section-label {
+  color: var(--md-text-secondary);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.speed-value {
+  margin: 28px 0;
+}
+
+.speed-value span {
+  font-size: clamp(90px, 25vw, 125px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -5px;
+  color: var(--md-primary);
+}
+
+.speed-value small {
+  display: block;
+  color: var(--md-text-secondary);
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* =========================================
+   SPEED INFORMATION
+   ========================================= */
+
+.speed-info {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  border-top: 1px solid var(--md-outline);
+  padding-top: 20px;
+}
+
+.speed-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.speed-info small,
+.stat-card small {
+  color: var(--md-text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.speed-info strong {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--md-text);
+}
+
+/* =========================================
+   STATISTIC CARDS
+   ========================================= */
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin-top: 16px;
+}
+
+.stat-card,
+.location-card {
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius);
+  padding: 19px;
+  box-shadow: var(--md-shadow);
+}
+
+.stat-card strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--md-text);
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   LOCATION CARD
+   ========================================= */
+
+.location-card {
+  margin-top: 16px;
+}
+
+.location-card p:not(.section-label) {
+  color: var(--md-text-secondary);
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   CONTROL BUTTONS
+   ========================================= */
+
+.controls {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+button {
+  border: none;
+  padding: 16px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.start-btn {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+}
+
+.start-btn:hover {
+  background: var(--md-primary-dark);
+}
+
+.pause-btn {
+  background: var(--md-warning-bg);
+  color: var(--md-warning);
+}
+
+.stop-btn {
+  background: var(--md-danger-bg);
+  color: var(--md-danger);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MAP CARD
+   ========================================= */
+
+.map-card {
+  margin-top: 16px;
+  padding: 15px;
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius);
+  box-shadow: var(--md-shadow);
+}
+
+.map-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 13px;
+  flex-wrap: wrap;
+}
+
+.map-heading strong {
+  font-size: 14px;
+  color: var(--md-primary);
+  font-weight: 700;
+}
+
+.map-heading small {
+  font-size: 11px;
+  color: var(--md-text-secondary);
+}
+
+#map {
+  width: 100%;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #e8edf5;
+  z-index: 1;
+}
+
+/* =========================================
+   MAP MARKER
+   ========================================= */
+
+.motor-marker {
+  font-size: 30px;
+  text-align: center;
+  line-height: 35px;
+}
+
+/* =========================================
+   HISTORY SECTION
+   ========================================= */
+
+.history-section {
+  margin-top: 22px;
+  padding: 17px;
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius);
+  box-shadow: var(--md-shadow);
+}
+
+.history-section h2,
+.history-section h3 {
+  color: var(--md-text);
+  margin-bottom: 14px;
+}
+
+#historyList {
+  display: grid;
+  gap: 12px;
+}
+
+#historyList > div {
+  box-shadow: var(--md-shadow);
+}
+
+/* =========================================
+   REPLAY DASHBOARD
+   ========================================= */
+
+#replayControls {
+  background: var(--md-surface) !important;
+  border: 1px solid var(--md-outline) !important;
+  border-radius: var(--md-radius) !important;
+  color: var(--md-text) !important;
+  box-shadow: var(--md-shadow);
+}
+
+#replayControls button {
+  border-radius: 50px;
+}
+
+#replayControls select {
+  border-radius: 50px !important;
+  background: var(--md-surface-variant) !important;
+  color: var(--md-text) !important;
+  border: 1px solid var(--md-outline) !important;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.footer {
+  color: var(--md-text-secondary);
+  font-size: 11px;
+  text-align: center;
+  margin-top: 28px;
+  padding-bottom: 12px;
+}
+
+/* =========================================
+   RESPONSIVE ANDROID
+   ========================================= */
+
+@media (max-width: 480px) {
+  body {
+    padding: 14px;
+  }
+
+  .header h1 {
+    font-size: 19px;
+  }
+
+  .speed-card {
+    padding: 25px 15px;
+  }
+
+  .speed-value span {
+    font-size: clamp(85px, 25vw, 110px);
+  }
+
+  .stat-card,
+  .location-card {
+    padding: 16px;
+  }
+
+  .stat-card strong {
+    font-size: 20px;
+  }
+
+  #map {
+    height: 320px;
+  }
+
+  .history-section {
+    padding: 13px;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
