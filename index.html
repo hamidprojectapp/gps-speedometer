@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#f8f9ff">
+  <meta name="description" content="GPS Speedometer dan pencatat perjalanan sepeda motor.">
+
+  <title>GPS Speedometer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header class="header">
+    <div class="header-brand">
+      <div class="app-icon">
+        <span class="material-symbols-rounded">speed</span>
+      </div>
+
+      <div>
+        <h1>Gps Speedometer</h1>
+        <p>Powered by Mouse2 GpS</p>
+      </div>
+    </div>
+
+    <div id="gpsStatus" class="gps-status">
+      GPS OFF
+    </div>
+  </header>
+
+  <main>
+
+    <!-- BERANDA -->
+
+    <section class="speed-card page-section" id="dashboardSection">
+
+      <div class="speed-card-heading">
+        <span class="material-symbols-rounded">speed</span>
+        <p class="section-label">CURRENT SPEED</p>
+      </div>
+
+      <div class="speed-value">
+        <span id="speed">0</span>
+        <small>km/h</small>
+      </div>
+
+      <div class="speed-info">
+        <div>
+          <span class="material-symbols-rounded">trending_up</span>
+          <small>MAX SPEED</small>
+          <strong id="maxSpeed">0 km/h</strong>
+        </div>
+
+        <div>
+          <span class="material-symbols-rounded">avg_time</span>
+          <small>AVG SPEED</small>
+          <strong id="avgSpeed">0 km/h</strong>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- STATISTIK -->
+
+    <section class="stats page-section" id="statsSection">
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <span class="material-symbols-rounded">route</span>
+        </div>
+
+        <small>DISTANCE</small>
+        <strong id="distance">0.00 km</strong>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <span class="material-symbols-rounded">timer</span>
+        </div>
+
+        <small>DURATION</small>
+        <strong id="duration">00:00:00</strong>
+      </div>
+
+    </section>
+
+    <!-- PETA GPS -->
+
+    <section class="map-card page-section" id="mapSection">
+
+      <div class="map-heading">
+        <div class="map-title">
+          <span class="material-symbols-rounded">map</span>
+
+          <div>
+            <strong>LIVE GPS MAP</strong>
+            <small>Posisi perjalanan Anda</small>
+          </div>
+        </div>
+
+        <span class="map-live-indicator">LIVE</span>
+      </div>
+
+      <div id="map"></div>
+
+    </section>
+
+    <!-- RIWAYAT PERJALANAN -->
+
+    <section class="history-section page-section" id="historySection">
+
+      <div class="history-header">
+
+        <div class="history-title">
+          <span class="material-symbols-rounded">history</span>
+
+          <div>
+            <h3>Riwayat Perjalanan</h3>
+            <small>Catatan perjalanan tersimpan</small>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="clear-history-btn"
+          onclick="clearTripHistory()"
+        >
+          <span class="material-symbols-rounded">delete</span>
+          Hapus Semua
+        </button>
+
+      </div>
+
+      <div id="historySummary">
+
+        <div class="history-summary-card">
+          <span class="material-symbols-rounded">two_wheeler</span>
+          <small>TOTAL PERJALANAN</small>
+          <strong id="totalTrips">0</strong>
+        </div>
+
+        <div class="history-summary-card">
+          <span class="material-symbols-rounded">route</span>
+          <small>TOTAL JARAK</small>
+          <strong id="totalTripDistance">0.00 km</strong>
+        </div>
+
+      </div>
+
+      <div id="historyList">
+        Memuat riwayat...
+      </div>
+
+    </section>
+
+    <!-- LOKASI GPS -->
+
+    <section class="location-card page-section" id="locationSection">
+
+      <div class="location-heading">
+        <span class="material-symbols-rounded">my_location</span>
+        <p class="section-label">GPS LOCATION</p>
+      </div>
+
+      <p id="coordinates">Menunggu lokasi GPS...</p>
+      <p id="accuracy">Akurasi: --</p>
+
+    </section>
+
+    <!-- KONTROL PERJALANAN -->
+
+    <section class="controls">
+
+      <button id="startBtn" class="start-btn" type="button">
+        <span class="material-symbols-rounded">play_arrow</span>
+        MULAI
+      </button>
+
+      <button id="stopBtn" class="stop-btn" type="button" disabled>
+        <span class="material-symbols-rounded">stop</span>
+        SELESAI
+      </button>
+
+      <button id="pauseBtn" class="pause-btn" type="button" disabled>
+        <span class="material-symbols-rounded">pause</span>
+        JEDA
+      </button>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+      <span class="material-symbols-rounded">two_wheeler</span>
+      <p>Mouse Mouse GPS Tracker</p>
+      <small>VERSION 2.0</small>
+    </footer>
+
+  </main>
+
+  <!-- NAVIGASI BAWAH -->
+
+  <nav class="bottom-navigation">
+
+    <a href="#dashboardSection" class="nav-item">
+      <span class="material-symbols-rounded">dashboard</span>
+      <small>Beranda</small>
+    </a>
+
+    <a href="#mapSection" class="nav-item">
+      <span class="material-symbols-rounded">map</span>
+      <small>Peta</small>
+    </a>
+
+    <a href="#historySection" class="nav-item">
+      <span class="material-symbols-rounded">history</span>
+      <small>Riwayat</small>
+    </a>
+
+    <a href="#locationSection" class="nav-item">
+      <span class="material-symbols-rounded">my_location</span>
+      <small>Lokasi</small>
+    </a>
+
+  </nav>
+
+  <!-- JAVASCRIPT -->
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+  <script src="history.js"></script>
+
+</body>
+</html>
